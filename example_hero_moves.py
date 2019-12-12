@@ -8,6 +8,7 @@ size = width, height = 800, 600
 screen = pygame.display.set_mode(size)
 
 pygame.display.flip()
+print(1)
 
 
 def load_image(name, colorkey=None):
