@@ -74,11 +74,16 @@ class MainHero(pygame.sprite.Sprite):
         self.rect.x = 10
         self.rect.y = 10
         self.vector = 1
+        self.vector_left_right = 1
 
     def update(self, *args):
         if self.frame_count % 5 == 0:
-            self.cur_frame = (self.cur_frame + 1) % len(self.frames_right)
-            self.image = self.frames_right[self.cur_frame]
+            if self.vector_left_right == 1:
+                self.cur_frame = (self.cur_frame + 1) % len(self.frames_right)
+                self.image = self.frames_right[self.cur_frame]
+            if self.vector_left_right == 2:
+                self.cur_frame = (self.cur_frame + 1) % len(self.frames_left)
+                self.image = self.frames_left[self.cur_frame]
 
         if pygame.key.get_pressed()[pygame.K_UP]:
             self.rect.y -= 10
@@ -89,9 +94,11 @@ class MainHero(pygame.sprite.Sprite):
         if pygame.key.get_pressed()[pygame.K_RIGHT]:
             self.rect.x += 10
             self.vector = 1
+            self.vector_left_right = 1
         if pygame.key.get_pressed()[pygame.K_LEFT]:
             self.rect.x -= 10
             self.vector = 2
+            self.vector_left_right = 2
         self.frame_count += 1
 
     def fire(self):
