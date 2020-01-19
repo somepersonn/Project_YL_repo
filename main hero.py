@@ -64,7 +64,7 @@ class MainHero(pygame.sprite.Sprite):
     image = load_image("hero.png", -1)
 
     def __init__(self, frames_right, frames_left, *groups):
-        super().__init__(frames_right, frames_left, *groups)
+        super().__init__(*groups)
         self.frames_right = frames_right
         self.frames_left = frames_left
         self.cur_frame = 0
@@ -102,14 +102,14 @@ all_sprites = pygame.sprite.Group()
 enemy_group = pygame.sprite.Group()
 fireballs = pygame.sprite.Group()
 
-hero = MainHero([load_image("bomzh_vprapo_okonchat0"), load_image("bomzh_vprapo_okonchat1"),
-                 load_image("bomzh_vprapo_okonchat2"), load_image("bomzh_vprapo_okonchat3"),
-                 load_image("bomzh_vprapo_okonchat4"), load_image("bomzh_vprapo_okonchat5"),
-                 load_image("bomzh_vprapo_okonchat6"), load_image("bomzh_vprapo_okonchat7")],
-                [load_image("bomzh_vlevo_okonchat0"), load_image("bomzh_vlevo_okonchat1"),
-                 load_image("bomzh_vlevo_okonchat2"), load_image("bomzh_vlevo_okonchat3"),
-                 load_image("bomzh_vlevo_okonchat4"), load_image("bomzh_vlevo_okonchat5"),
-                 load_image("bomzh_vlevo_okonchat6"), load_image("bomzh_vlevo_okonchat7")], all_sprites)
+hero = MainHero([load_image("bomzh_vprapo_okonchat0.png", -1), load_image("bomzh_vprapo_okonchat1.png", -1),
+                 load_image("bomzh_vprapo_okonchat2.png", -1), load_image("bomzh_vprapo_okonchat3.png", -1),
+                 load_image("bomzh_vprapo_okonchat4.png", -1), load_image("bomzh_vprapo_okonchat5.png", -1),
+                 load_image("bomzh_vprapo_okonchat6.png", -1), load_image("bomzh_vprapo_okonchat7.png", -1)],
+                [load_image("bomzh_vlevo_okonchat0.png", -1), load_image("bomzh_vlevo_okonchat1.png", -1),
+                 load_image("bomzh_vlevo_okonchat2.png", -1), load_image("bomzh_vlevo_okonchat3.png", -1),
+                 load_image("bomzh_vlevo_okonchat4.png", -1), load_image("bomzh_vlevo_okonchat5.png", -1),
+                 load_image("bomzh_vlevo_okonchat6.png", -1), load_image("bomzh_vlevo_okonchat7.png", -1)], all_sprites)
 
 clock = pygame.time.Clock()
 running = True
