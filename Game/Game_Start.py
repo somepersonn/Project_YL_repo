@@ -3,7 +3,6 @@ import os
 
 
 LABELS = ['Название', 'Новая игра', 'Продолжить', 'Достижения', 'Настройки', 'Выход']
-
 Frases = ['Никто из нас уже не сможет сказать, как выглядят трава, деревья и реки.',
           'Раньше эти края были прекрасной зелёной долиной, в которой все жили в радости и достатке',
           '*Показываем картинку деревни*',
@@ -20,14 +19,11 @@ Frases = ['Никто из нас уже не сможет сказать, ка�
           'Итак, да начнётся приключение.',
           '*Показываем вход в ту тюрьму, перс заходит в неё*']
 
-
 pygame.init()
 infoObject = pygame.display.Info()
 screen = pygame.display.set_mode((1000, 600), pygame.FULLSCREEN)
 clock = pygame.time.Clock()
 pygame.display.set_caption('Super Game')
-font = pygame.font.Font(None, 25)
-
 
 def load_image(name, colorkey=None):
     fullname = os.path.join('data', name)
@@ -40,7 +36,6 @@ def load_image(name, colorkey=None):
         image = image.convert_alpha()
     return image
 
-
 def music(name):
     fullname = os.path.join('data', name)
     if name[-3:] == 'mp3':
@@ -51,77 +46,69 @@ def music(name):
     else:
         print('error sound')
 
-music('TownTheme.mp3')
-
 def static_labels():
-    screen.blit(font.render(LABELS[0], 1, (255, 0, 0), (0, 0, 0)), (100, 100))
-    pygame.draw.rect(screen, (123, 0, 123), (90, 90, 130, 30), 1)
-    screen.blit(font.render(LABELS[1], 1, (255, 0, 0), (0, 0, 0)), (100, 150))
-    pygame.draw.rect(screen, (123, 0, 123), (90, 140, 130, 30), 1)
-    screen.blit(font.render(LABELS[2], 1, (255, 0, 0), (0, 0, 0)), (100, 200))
-    pygame.draw.rect(screen, (123, 0, 123), (90, 190, 130, 30), 1)
-    screen.blit(font.render(LABELS[3], 1, (255, 0, 0), (0, 0, 0)), (100, 250))
-    pygame.draw.rect(screen, (123, 0, 123), (90, 240, 130, 30), 1)
-    screen.blit(font.render(LABELS[4], 1, (255, 0, 0), (0, 0, 0)), (100, 300))
-    pygame.draw.rect(screen, (123, 0, 123), (90, 290, 130, 30), 1)
-    screen.blit(font.render(LABELS[5], 1, (255, 0, 0), (0, 0, 0)), (100, 350))
-    pygame.draw.rect(screen, (123, 0, 123), (90, 340, 130, 30), 1)
+    font = pygame.font.Font(None, 25)
+    screen.blit(font.render(LABELS[0], 1, (255, 255, 255), (0, 0, 0)), (450, 100))
+    pygame.draw.rect(screen, (123, 0, 123), (435, 90, 150, 30), 1)
+    screen.blit(font.render(LABELS[1], 1, (255, 255, 255), (0, 0, 0)), (100 + xl, 150 + yl))
+    pygame.draw.rect(screen, (123, 0, 123), (90 + xl, 140 + yl, 130, 30), 1)
+    if save:
+        pass
+    else:
+        screen.blit(font.render(LABELS[2], 1, (100, 100, 100), (0, 0, 0)), (100 + xl, 200 + yl))
+        pygame.draw.rect(screen, (123, 0, 123), (90 + xl, 190 + yl, 130, 30), 1)
+    screen.blit(font.render(LABELS[3], 1, (255, 255, 255), (0, 0, 0)), (100 + xl, 250 + yl))
+    pygame.draw.rect(screen, (123, 0, 123), (90 + xl, 240 + yl, 130, 30), 1)
+    screen.blit(font.render(LABELS[4], 1, (255, 255, 255), (0, 0, 0)), (100 + xl, 300 + yl))
+    pygame.draw.rect(screen, (123, 0, 123), (90 + xl, 290 + yl, 130, 30), 1)
+    screen.blit(font.render(LABELS[5], 1, (255, 255, 255), (0, 0, 0)), (100 + xl, 350 + yl))
+    pygame.draw.rect(screen, (123, 0, 123), (90 + xl, 340 + yl, 130, 30), 1)
 
-
-font = pygame.font.Font(None, 15)
 K = -1
+xl, yl = 0, 50
+save = False
 Flag = False
-run = True
-
-
-def intro():
-    global run, Flag, K
-    while run:
+dialog = False
+gamerun = True
+menu = True
+music('TownTheme.mp3')
+while gamerun:
+    if dialog:
+        menu = False
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run = False
-            if event.type == pygame.MOUSEBUTTONDOWN:  # При нажатии ЛКМ, меняется фраза.
+                gamerun = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    if Flag == False and K < 14:  # Задаём максимум, равный максимальному индексу в списке Frases
+                    if Flag == False and K < 14:
                         K += 1
                         Flag = True
-                    elif Flag == True and K < 14:  # Тут тоже.
+                    elif Flag == True and K < 14:
                         K += 1
                     else:
                         Flag = False
                         K = -1
-        screen.fill((0, 0, 0))
+        screen.fill((10, 10, 10))
         if Flag:
             if K not in [2, 5]:
-                screen.blit(font.render(Frases[K], 1, (255, 0, 0), (0, 0, 0)), (0, 255))
+                screen.blit(pygame.font.Font(None, 18).render(Frases[K], 1, (255, 0, 0), (0, 0, 0)), (0, 401))
             elif K == 2:
-                screen.blit(font.render(Frases[K], 1, (255, 0, 0), (0, 0, 0)), (0, 255))
+                screen.blit(pygame.font.Font(None, 18).render(Frases[K], 1, (255, 0, 0), (0, 0, 0)), (0, 401))
             elif K == 5:
                 pass
-        pygame.draw.line(screen, (123, 0, 123), [0, 250], [750, 250], 1)
-
+        pygame.draw.line(screen, (123, 0, 123), [0, 400], [1000, 400], 1)
         pygame.display.flip()
-
-    pygame.quit()
-
-
-w = False
-q = True
-
-while q:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            q = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            x, y = pygame.mouse.get_pos()
-            if event.button == 1 and (90 < x < 220) and (140 < y < 170):
-                w = True
-            if event.button == 1 and (90 < x < 220) and (340 < y < 370):
-                pygame.quit()
-    screen.fill((10, 10, 10))
-    static_labels()
-    if w:
-        intro()
+    elif menu:
+        screen.fill((10, 10, 10))
+        static_labels()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                gamerun = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                if event.button == 1 and (90 < (x - xl) < 220) and (140 < (y - yl) < 170):
+                    dialog = True
+                if event.button == 1 and (90 < (x - xl) < 220) and (340 < (y - yl) < 370):
+                    gamerun = False
     pygame.display.update()
-
 pygame.quit()
